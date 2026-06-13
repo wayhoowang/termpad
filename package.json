@@ -1,0 +1,103 @@
+{
+  "name": "termpad",
+  "displayName": "TermPad",
+  "description": "Edit, reuse, and send terminal commands from a VS Code scratchpad.",
+  "version": "0.1.0",
+  "repository": "https://github.com/wayhoowang/termpad",
+  "publisher": "wayhoowang",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "terminal",
+    "shell",
+    "command",
+    "history",
+    "remote-ssh"
+  ],
+  "activationEvents": [
+    "onCommand:termPad.open",
+    "onCommand:termPad.send",
+    "onCommand:termPad.saveHistoryFromEditor",
+    "onCommand:termPad.closeWithoutSaving",
+    "onCommand:termPad.clearHistory"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "termPad.open",
+        "title": "TermPad: Open"
+      },
+      {
+        "command": "termPad.send",
+        "title": "TermPad: Send Selection, Block, or Current Line"
+      },
+      {
+        "command": "termPad.saveHistoryFromEditor",
+        "title": "TermPad: Save History From Editor"
+      },
+      {
+        "command": "termPad.closeWithoutSaving",
+        "title": "TermPad: Close Without Saving"
+      },
+      {
+        "command": "termPad.clearHistory",
+        "title": "TermPad: Clear History"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "termPad.open",
+        "key": "ctrl+alt+g",
+        "mac": "ctrl+alt+g",
+        "when": "editorTextFocus || terminalFocus || !inputFocus"
+      },
+      {
+        "command": "termPad.send",
+        "key": "ctrl+alt+enter",
+        "mac": "ctrl+alt+enter",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "termPad.closeWithoutSaving",
+        "key": "ctrl+alt+w",
+        "mac": "ctrl+alt+w",
+        "when": "editorTextFocus && termPad.bufferActive"
+      }
+    ],
+    "configuration": {
+      "title": "TermPad",
+      "properties": {
+        "termPad.maxHistory": {
+          "type": "number",
+          "default": 200,
+          "minimum": 1,
+          "description": "Maximum number of commands kept in shared history."
+        },
+        "termPad.createTerminalWhenMissing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Create a terminal when there is no active terminal to receive a command."
+        },
+        "termPad.revealTerminalOnSend": {
+          "type": "boolean",
+          "default": true,
+          "description": "Reveal the active terminal after sending a command."
+        },
+        "termPad.editorLanguage": {
+          "type": "string",
+          "default": "shellscript",
+          "description": "Language mode used for TermPad scratch buffers."
+        }
+      }
+    }
+  }
+}
